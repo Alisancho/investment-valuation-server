@@ -6,7 +6,7 @@ lazy val akkaVersionHttp = "10.1.11"
 lazy val softwaremillVersion = "2.3.3"
 lazy val catsVersion = "2.2.0-RC1"
 lazy val fs2Version = "2.4.2"
-
+lazy val breezeVersion = "1.0"
 lazy val root = project
   .in(file("."))
   .settings(
@@ -39,4 +39,7 @@ lazy val root = project
     libraryDependencies += ("com.softwaremill.macwire" %% "macros" % softwaremillVersion % "provided").withDottyCompat(scalaVersion.value),
     libraryDependencies += ("com.softwaremill.macwire" %% "proxy" % softwaremillVersion).withDottyCompat(scalaVersion.value),
     libraryDependencies += ("com.softwaremill.macwire" %% "util" % softwaremillVersion).withDottyCompat(scalaVersion.value),
+    libraryDependencies += ("org.scalanlp" %% "breeze" % breezeVersion).withDottyCompat(scalaVersion.value),
+    libraryDependencies += ("org.scalanlp" %% "breeze-natives" % breezeVersion).withDottyCompat(scalaVersion.value),
+    libraryDependencies += ("org.scalanlp" %% "breeze-viz" % breezeVersion).withDottyCompat(scalaVersion.value),
   )
