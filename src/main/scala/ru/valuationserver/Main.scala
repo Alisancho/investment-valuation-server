@@ -1,3 +1,4 @@
+package ru.valuationserver
 
 object Main {
 
