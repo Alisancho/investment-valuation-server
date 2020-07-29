@@ -1,4 +1,4 @@
-val dottyVersion = "0.25.0-RC2"
+val dottyVersion = "0.26.0-RC1"
 
 lazy val tinkoffVersion = "0.4.1"
 lazy val akkaVersion = "2.6.4"
@@ -19,6 +19,7 @@ lazy val root = project
     libraryDependencies += ("ru.tinkoff.invest" % "openapi-java-sdk" % tinkoffVersion pomOnly()),
     libraryDependencies += ("ru.tinkoff.invest" % "openapi-java-sdk-example" % tinkoffVersion),
     libraryDependencies += ("ru.tinkoff.invest" % "openapi-java-sdk-core" % tinkoffVersion),
+    libraryDependencies += ("com.lightbend.akka" %% "akka-stream-alpakka-mongodb" % "2.0.1").withDottyCompat(scalaVersion.value),
     libraryDependencies += ("com.typesafe.akka" %% "akka-actor" % akkaVersion).withDottyCompat(scalaVersion.value),
     libraryDependencies += ("com.typesafe.akka" %% "akka-testkit" % akkaVersion % Test).withDottyCompat(scalaVersion.value),
     libraryDependencies += ("com.typesafe.akka" %% "akka-stream" % akkaVersion).withDottyCompat(scalaVersion.value),
