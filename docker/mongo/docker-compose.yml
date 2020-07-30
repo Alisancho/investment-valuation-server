@@ -1,0 +1,9 @@
+version: '2'
+services:
+  mongo:
+    command: mongod
+    image: mongo:3.2.0
+    ports:
+      - "27100:27017" # map port to none standard port, to avoid conflicts with locally installed mongodb.
+    volumes:
+      - /var/run/docker.soc k:/var/run/docker.sock
