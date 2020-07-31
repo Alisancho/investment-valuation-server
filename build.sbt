@@ -12,10 +12,9 @@ lazy val root = project
   .settings(
     name := "dotty-simple",
     version := "0.1.0",
-
     scalaVersion := dottyVersion,
-
     libraryDependencies += "com.novocode" % "junit-interface" % "0.11" % "test",
+    libraryDependencies += ("org.mongodb.scala" %% "mongo-scala-driver" % "4.0.5").withDottyCompat(scalaVersion.value),
     libraryDependencies += ("ru.tinkoff.invest" % "openapi-java-sdk" % tinkoffVersion pomOnly()),
     libraryDependencies += ("ru.tinkoff.invest" % "openapi-java-sdk-example" % tinkoffVersion),
     libraryDependencies += ("ru.tinkoff.invest" % "openapi-java-sdk-core" % tinkoffVersion),
@@ -31,6 +30,7 @@ lazy val root = project
     libraryDependencies += ("com.typesafe.akka" %% "akka-persistence" % akkaVersion).withDottyCompat(scalaVersion.value),
     libraryDependencies += ("com.typesafe.akka" %% "akka-distributed-data" % akkaVersion).withDottyCompat(scalaVersion.value),
     libraryDependencies += ("com.typesafe.akka" %% "akka-slf4j" % akkaVersion).withDottyCompat(scalaVersion.value),
+    libraryDependencies += ("com.lightbend.akka" %% "akka-stream-alpakka-mongodb" % "2.0.1").withDottyCompat(scalaVersion.value),
     libraryDependencies += ("ch.qos.logback" % "logback-classic" % "1.2.3").withDottyCompat(scalaVersion.value),
     libraryDependencies += ("ch.qos.logback" % "logback-core" % "1.2.3").withDottyCompat(scalaVersion.value),
     libraryDependencies += ("net.logstash.logback" % "logstash-logback-encoder" % "6.2").withDottyCompat(scalaVersion.value),
