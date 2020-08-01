@@ -7,19 +7,21 @@ import akka.stream.ActorMaterializer
 import cats.effect.{ContextShift, ExitCode, IO, IOApp}
 import ru.tinkoff.invest.openapi.OpenApi
 import ru.tinkoff.invest.openapi.okhttp.OkHttpOpenApiFactory
-import ru.valuationserver.core.ConfigObject.INVEST_TOKEN
+import ru.valuationserver.core.ConfigObject
+import ru.valuationserver.core.ConfigObject.{INVEST_TOKEN, TINKOFF_BROKER_ACCOUNT_ID}
+import ru.valuationserver.service.TinkoffApiService
 
 import scala.concurrent.{ExecutionContext, ExecutionContextExecutor}
 
 object Main extends IOApp {
-  implicit val system: ActorSystem = ActorSystem()
+  implicit val system: ActorSystem = ActorSystem("home-invest", ConfigObject.conf)
   implicit val ec: ExecutionContextExecutor = system.dispatcher
   implicit val materializer: ActorMaterializer = ActorMaterializer()
   override val contextShift: ContextShift[IO] = IO.contextShift(ExecutionContext.global)
 
   override def run(args: List[String]): IO[ExitCode] = for {
-    _ <- apiTask
-    _ = Thread.sleep(40000)
+    api <- apiTask
+    tin <- IO(new TinkoffApiService(api, TINKOFF_BROKER_ACCOUNT_ID))
   } yield ExitCode(1)
 
   val apiTask: IO[OpenApi] = for {
