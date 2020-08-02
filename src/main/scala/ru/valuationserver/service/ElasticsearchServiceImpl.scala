@@ -1,26 +1,20 @@
 package ru.valuationserver.service
 
 import java.util.UUID
-import java.util.function.Consumer
 
-import akka.actor.ActorSystem
-import akka.stream.{ActorMaterializer, Materializer}
+import akka.stream.Materializer
 import akka.stream.scaladsl.Source
 import org.apache.http.HttpHost
 import org.elasticsearch.client.RestClient
 import spray.json._
 import DefaultJsonProtocol._
 import akka.Done
-import akka.stream.alpakka.elasticsearch.{ElasticsearchWriteSettings, ReadResult, WriteMessage}
-import akka.stream.alpakka.elasticsearch.scaladsl.{ElasticsearchSink, ElasticsearchSource}
-import cats.effect.IO
-import org.apache.http.auth.{AuthScope, UsernamePasswordCredentials}
+import akka.stream.alpakka.elasticsearch.WriteMessage
+import akka.stream.alpakka.elasticsearch.scaladsl.ElasticsearchSink
+import org.apache.http.auth.AuthScope
 import org.apache.http.client.CredentialsProvider
 import org.apache.http.impl.client.BasicCredentialsProvider
-
-
 import scala.concurrent.Future
-
 
 object ElasticsearchServiceImpl extends App {
 

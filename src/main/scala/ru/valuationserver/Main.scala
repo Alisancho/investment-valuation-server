@@ -11,13 +11,13 @@ import ru.valuationserver.core.ConfigObject
 import ru.valuationserver.core.ConfigObject.{INVEST_TOKEN, TINKOFF_BROKER_ACCOUNT_ID}
 import ru.valuationserver.service.TinkoffApiService
 
-import scala.concurrent.{ExecutionContext, ExecutionContextExecutor}
+import scala.concurrent.ExecutionContextExecutor
 
 object Main extends IOApp {
   implicit val system: ActorSystem = ActorSystem("home-invest", ConfigObject.conf)
   implicit val ec: ExecutionContextExecutor = system.dispatcher
   implicit val materializer: ActorMaterializer = ActorMaterializer()
-  override val contextShift: ContextShift[IO] = IO.contextShift(ExecutionContext.global)
+  override val contextShift: ContextShift[IO] = IO.contextShift(ec)
 
   override def run(args: List[String]): IO[ExitCode] = for {
     api <- apiTask

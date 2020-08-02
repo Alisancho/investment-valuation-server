@@ -1,11 +1,8 @@
 package ru.valuationserver.service
 
-import org.apache.spark.SparkContext
-import org.apache.log4j.{Logger, Level}
-import org.apache.spark.rdd.RDD
-import org.apache.spark.storage.StorageLevel
-import org.apache.spark.{SparkConf, SparkContext}
+import ru.tinkoff.invest.openapi.OpenApi
+import ru.valuationserver.service.tinkoffrest.{TinkoffMarket, TinkoffOrders, TinkoffPortfolio}
 
-class TinkoffApiService {
-
+class TinkoffApiService(val api: OpenApi, val accountId: String)
+  extends TinkoffMarket with TinkoffOrders with TinkoffPortfolio {
 }
