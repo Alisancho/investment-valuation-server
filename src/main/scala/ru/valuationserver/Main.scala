@@ -22,6 +22,8 @@ object Main extends IOApp {
   override def run(args: List[String]): IO[ExitCode] = for {
     api <- apiTask
     tin <- IO(new TinkoffApiService(api, TINKOFF_BROKER_ACCOUNT_ID))
+    l   <- tin.getMarketStocks(contextShift)
+
   } yield ExitCode(1)
 
   val apiTask: IO[OpenApi] = for {
