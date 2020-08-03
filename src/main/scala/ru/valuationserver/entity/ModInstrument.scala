@@ -12,7 +12,7 @@ object ModInstrument {
   case class EInstrument(figi: String,
                          ticker: String,
                          isin: String,
-                         minPriceIncrement: BigDecimal,
+                        // minPriceIncrement: String,
                          lot: Int,
                          currency: String,
                          name: String,
@@ -23,12 +23,12 @@ object ModInstrument {
       instrument.figi,
       instrument.ticker,
       instrument.isin,
-      instrument.minPriceIncrement,
+    //  instrument.minPriceIncrement.toString,
       instrument.lot,
       instrument.currency.name(),
       instrument.name,
       instrument.`type`.name()
     )
   }
-  implicit val formatSearchPayment2: JsonFormat[EInstrument] = jsonFormat8(EInstrument)
+  implicit val formatSearchPayment2: JsonFormat[EInstrument] = jsonFormat7(EInstrument)
 }
