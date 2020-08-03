@@ -10,6 +10,7 @@ import spray.json._
 import akka.Done
 import akka.stream.alpakka.elasticsearch.WriteMessage
 import akka.stream.alpakka.elasticsearch.scaladsl.ElasticsearchSink
+import cats.effect.{ContextShift, IO}
 import org.apache.http.auth.AuthScope
 import org.apache.http.client.CredentialsProvider
 import org.apache.http.impl.client.BasicCredentialsProvider
@@ -21,7 +22,7 @@ object ElasticsearchServiceImpl extends App {
 
   private def getID: String = "API-" + UUID.randomUUID().toString.substring(24)
 
-  def getElasticSearchClient(host: String, port: Int): RestClient = {
+  def getElasticSearchClient(host: String, port: Int): IO[RestClient] = IO {
     val credentialsProvider: CredentialsProvider = new BasicCredentialsProvider()
     credentialsProvider.getCredentials(AuthScope.ANY)
     RestClient
@@ -35,10 +36,12 @@ object ElasticsearchServiceImpl extends App {
 
   def insert[T <: ElasticClass](elasticIndex: String, elasticTypeDoc: String, listData: List[T])
                                (restClient: RestClient, js: JsonFormat[T])
-                               (materializer: Materializer): Future[Done] =
-    Source(listData)
-      .map { objectMess =>
-        WriteMessage.createUpsertMessage(id = getID, source = objectMess)
-      }.runWith(ElasticsearchSink.create[T](elasticIndex, elasticTypeDoc)(elasticsearchClient = restClient, sprayJsonWriter = js))(materializer)
-
+                               (materializer: Materializer, contextShift: ContextShift[IO]): IO[Done] = IO.fromFuture {
+    IO {
+      Source(listData)
+        .map { objectMess =>
+          WriteMessage.createUpsertMessage(id = getID, source = objectMess)
+        }.runWith(ElasticsearchSink.create[T](elasticIndex, elasticTypeDoc)(elasticsearchClient = restClient, sprayJsonWriter = js))(materializer)
+    }
+  }(contextShift)
 }
