@@ -16,6 +16,7 @@ import ru.valuationserver.entity.elastictype.Instrument._
 import scala.concurrent.ExecutionContextExecutor
 import scala.language.implicitConversions
 import ru.valuationserver.entity.ElasticContainer.{given _}
+import ru.valuationserver.entity.ElasticContainer._
 import ru.valuationserver.entity.elastictype.EInstrument.{given _} 
 
 object Main extends IOApp {
@@ -29,7 +30,8 @@ object Main extends IOApp {
     tin   <- IO(new TinkoffApiService(api, TINKOFF_BROKER_ACCOUNT_ID))
     l     <- tin.getMarketStocks(contextShift)
     resCl <- ElasticsearchServiceImpl.getElasticSearchClient("localhost", 9200)
-    list  = l.instruments.asScala.toList.map(_.toEInstrument)
+    list  = l.instruments.asScala.toList.map(i => putToContainer(i.toEInstrument))
+  
   
   } yield ExitCode(1)
 
