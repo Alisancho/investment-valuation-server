@@ -14,14 +14,8 @@ import cats.effect.{ContextShift, IO}
 import org.apache.http.auth.AuthScope
 import org.apache.http.client.CredentialsProvider
 import org.apache.http.impl.client.BasicCredentialsProvider
-import ru.valuationserver.entity.ElasticClass
-
-import scala.concurrent.Future
 
 object ElasticsearchServiceImpl extends App {
-
-  private def getID: String = "API-" + UUID.randomUUID().toString.substring(24)
-
   def getElasticSearchClient(host: String, port: Int): IO[RestClient] = IO {
     val credentialsProvider: CredentialsProvider = new BasicCredentialsProvider()
     credentialsProvider.getCredentials(AuthScope.ANY)
@@ -33,15 +27,4 @@ object ElasticsearchServiceImpl extends App {
       })
       .build
   }
-
-  def insert[T <: ElasticClass](elasticIndex: String, elasticTypeDoc: String, listData: List[T])
-                               (restClient: RestClient, js: JsonFormat[T])
-                               (materializer: Materializer, contextShift: ContextShift[IO]): IO[Done] = IO.fromFuture {
-    IO {
-      Source(listData)
-        .map { objectMess =>
-          WriteMessage.createUpsertMessage(id = getID, source = objectMess)
-        }.runWith(ElasticsearchSink.create[T](elasticIndex, elasticTypeDoc)(elasticsearchClient = restClient, sprayJsonWriter = js))(materializer)
-    }
-  }(contextShift)
 }
