@@ -27,7 +27,7 @@ case class EInstrument(figi: String,
                        lot: Int,
                        currency: String,
                        name: String,
-                       instrumentType: String) extends ElasticTable
+                       instrumentType: String)
 
 object Instrument {
   
