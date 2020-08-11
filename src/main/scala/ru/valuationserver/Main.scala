@@ -31,8 +31,6 @@ object Main extends IOApp {
     l     <- tin.getMarketStocks(contextShift)
     resCl <- ElasticsearchServiceImpl.getElasticSearchClient("localhost", 9200)
     list  = l.instruments.asScala.toList.map(i => putToContainer(i.toEInstrument))
-  
-  
   } yield ExitCode(1)
 
   val apiTask: IO[OpenApi] = for {
