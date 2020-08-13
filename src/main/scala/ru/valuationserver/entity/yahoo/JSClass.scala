@@ -49,8 +49,50 @@ case class Price(maxAge: Int,
 
 case class PriceHint(raw: Int, fmt: String, longFmt: String)
 
-
-
 case class Result(price: Price)
 
 case class RootInterface(quoteSummary: QuoteSummary)
+////////
+case class DefaultKeyStatistics(
+    maxAge: Int,
+    priceHint: PriceHint,
+    enterpriseValue: Any,
+    forwardPE: Any,
+    profitMargins: Any,
+    morningStarOverallRating: Any,
+    morningStarRiskRating: Any,
+    category: String,
+    bookValue: Any,
+    priceToBook: Any,
+    annualReportExpenseRatio: Any,
+    ytdReturn: YtdReturn,
+    beta3Year: YtdReturn,
+    totalAssets: PriceHint,
+    _yield: YtdReturn,
+    fundFamily: String,
+    fundInceptionDate: YtdReturn,
+    legalType: String,
+    threeYearAverageReturn: YtdReturn,
+    fiveYearAverageReturn: YtdReturn,
+    priceToSalesTrailing12Months: Any,
+    lastFiscalYearEnd: Any,
+    nextFiscalYearEnd: Any,
+    mostRecentQuarter: Any,
+    earningsQuarterlyGrowth: Any,
+    revenueQuarterlyGrowth: Any,
+    netIncomeToCommon: Any,
+    trailingEps: Any,
+    forwardEps: Any,
+    pegRatio: Any,
+    lastSplitFactor: String,
+    lastSplitDate: Any,
+    enterpriseToRevenue: Any,
+    enterpriseToEbitda: Any,
+    _52WeekChange: Any,
+    SandP52WeekChange: Any,
+    lastDividendValue: Any,
+    lastCapGain: Any,
+    annualHoldingsTurnover: Any
+)
+
+case class YtdReturn(raw: Double, fmt: String)
