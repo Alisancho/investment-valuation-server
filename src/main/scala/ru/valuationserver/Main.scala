@@ -17,14 +17,14 @@ import scala.concurrent.ExecutionContextExecutor
 import scala.language.implicitConversions
 import ru.valuationserver.entity.ElasticContainer.{given _}
 import ru.valuationserver.entity.ElasticContainer._
-import ru.valuationserver.entity.elastictype.EInstrument.{given _} 
+import ru.valuationserver.entity.elastictype.EInstrument.{given _}
 
 object Main extends IOApp {
   given system as ActorSystem = ActorSystem("home-invest", ConfigObject.conf)
   given ec as ExecutionContextExecutor = system.dispatcher
   given materializer as ActorMaterializer = ActorMaterializer()
   override given contextShift as ContextShift[IO] = IO.contextShift(ec)
-
+  
   override def run(args: List[String]): IO[ExitCode] = for {
     api   <- apiTask
     tin   <- IO(new TinkoffApiService(api, TINKOFF_BROKER_ACCOUNT_ID))

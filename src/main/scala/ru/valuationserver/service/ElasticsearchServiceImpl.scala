@@ -15,6 +15,8 @@ import org.apache.http.auth.AuthScope
 import org.apache.http.client.CredentialsProvider
 import org.apache.http.impl.client.BasicCredentialsProvider
 
+trait ElasticType
+
 object ElasticsearchServiceImpl extends App {
   def getElasticSearchClient(host: String, port: Int): IO[RestClient] = IO {
     val credentialsProvider: CredentialsProvider = new BasicCredentialsProvider()
@@ -26,5 +28,10 @@ object ElasticsearchServiceImpl extends App {
         p.setDefaultCredentialsProvider(credentialsProvider)
       })
       .build
+  }
+}
+class ElasticsearchServiceImpl{
+  def insert[T <: ElasticType](k:T): Unit ={
+    
   }
 }

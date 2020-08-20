@@ -42,5 +42,7 @@ lazy val root = project
     libraryDependencies += ("com.softwaremill.macwire" %% "util" % softwaremillVersion).withDottyCompat(scalaVersion.value),
     libraryDependencies += ("org.scalanlp" %% "breeze" % breezeVersion).withDottyCompat(scalaVersion.value),
     libraryDependencies += ("org.scalanlp" %% "breeze-natives" % breezeVersion).withDottyCompat(scalaVersion.value),
-    libraryDependencies += ("org.scalanlp" %% "breeze-viz" % breezeVersion).withDottyCompat(scalaVersion.value),
+    libraryDependencies += ("org.scalanlp" %% "breeze-viz" % breezeVersion).withDottyCompat(scalaVersion.value), 
+      libraryDependencies += ("com.google.api.client" % "google-api-data-finance-v2" % "1.0.10-alpha"),
+
   )
