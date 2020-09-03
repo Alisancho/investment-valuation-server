@@ -1,4 +1,4 @@
-val dottyVersion = "0.26.0-RC1"
+val dottyVersion = "0.27.0-RC1"
 
 lazy val tinkoffVersion = "0.4.1"
 lazy val akkaVersion = "2.6.4"
